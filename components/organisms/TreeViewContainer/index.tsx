@@ -208,11 +208,6 @@ function TreeViewContainer() {
       return true;
     }
 
-    if (node.children.length === 0) {
-      node.shouldHide = true;
-      return false;
-    }
-
     let isInFilter = false;
 
     for (let i = 0; i < node.children.length; i++) {
