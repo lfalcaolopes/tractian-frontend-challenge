@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import energySensorIcon from '@/public/energySensor.png'
 import routerIcon from '@/public/router.png'
-import inboxIcon from '@/public/inbox.png'
+import inboxIcon from '@/public/Inbox.png'
 
 import * as Styled from './styles'
 import { IComponents } from '@/store/types'
