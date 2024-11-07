@@ -68,3 +68,8 @@ export interface IComponents {
   parentId?: string;
 }
 
+export enum EFilter {
+  ENERGY = 'energy',
+  CRITICAL = 'critical',
+  SEARCH = 'search'
+}

@@ -7,7 +7,7 @@ import criticIcon from '@/public/critic.png'
 import * as Styled from './styles'
 import AssetsTree from '@/components/molecules/AssetsTree'
 import AssetInfo from '@/components/molecules/AssetInfo'
-import { IComponents, IGeneralAssets, IGeneralLocation, ITreeNode } from '@/store/types'
+import { EFilter, IComponents, IGeneralAssets, IGeneralLocation, ITreeNode } from '@/store/types'
 import { useAtom } from 'jotai'
 import { SelectedCompanyAtom } from '@/components/molecules/Header'
 
@@ -17,7 +17,7 @@ function TreeViewContainer() {
   const [assetTree, setAssetTree] = useState<ITreeNode[]>([]);
   const [filteredAssetTree, setFilteredAssetTree] = useState<ITreeNode[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<IComponents | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<'energy' | 'critical' | 'search' | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<EFilter | null>(null);
 
   const getLocations = async (companyId: string) => {
     const data = await fetch(`https://fake-api.tractian.com/companies/${companyId}/locations`);
@@ -199,11 +199,11 @@ function TreeViewContainer() {
   };
 
 
-  const walk = (node: ITreeNode, filterType: 'energy' | 'critical' | 'search', searchTerm?: string) => {
+  const walk = (node: ITreeNode, filterType: EFilter, searchTerm?: string) => {
     if (
-      (filterType === 'energy' && node.sensorType === 'energy')
-      || (filterType === 'critical' && node.status === 'alert')
-      || (filterType === 'search' && matchSearch(node, searchTerm))
+      (filterType === EFilter.ENERGY && node.sensorType === 'energy')
+      || (filterType === EFilter.CRITICAL && node.status === 'alert')
+      || (filterType === EFilter.SEARCH && matchSearch(node, searchTerm))
     ) {
       return true;
     }
@@ -224,8 +224,8 @@ function TreeViewContainer() {
     return isInFilter;
   }
 
-  const filterAssets = (filter: 'energy' | 'critical' | 'search', searchTerm?: string) => {
-    if ((filter === 'search' && !searchTerm) || (selectedFilter !== 'search' && selectedFilter === filter)) {
+  const filterAssets = (filter: EFilter, searchTerm?: string) => {
+    if ((filter === EFilter.SEARCH && !searchTerm) || (selectedFilter !== EFilter.SEARCH && selectedFilter === filter)) {
       setSelectedFilter(null);
       setFilteredAssetTree(assetTree);
       return;
@@ -239,9 +239,9 @@ function TreeViewContainer() {
 
     const treeCloneFiltered = treeClone.filter((node) => (
       node.children.length > 0
-      || (filter === 'energy' && node.sensorType === 'energy')
-      || (filter === 'critical' && node.status === 'alert')
-      || (filter === 'search' && matchSearch(node, searchTerm))
+      || (filter === EFilter.ENERGY && node.sensorType === 'energy')
+      || (filter === EFilter.CRITICAL && node.status === 'alert')
+      || (filter === EFilter.SEARCH && matchSearch(node, searchTerm))
   ));
 
     setSelectedFilter(filter);
@@ -282,14 +282,14 @@ function TreeViewContainer() {
             <Styled.Filters>
               <Button
                 name="Sensor de Energia"
-                onClick={() => filterAssets('energy')}
+                onClick={() => filterAssets(EFilter.ENERGY)}
                 theme='white'
                 isSelected={selectedFilter === 'energy'}
                 icon={energySensorIcon}
               />
               <Button
                 name="Crítico"
-                onClick={() => filterAssets('critical')}
+                onClick={() => filterAssets(EFilter.CRITICAL)}
                 theme='white'
                 isSelected={selectedFilter === 'critical'}
                 icon={criticIcon}
@@ -301,7 +301,7 @@ function TreeViewContainer() {
             <AssetsTree
               assetTree={filteredAssetTree}
               selectComponent={(component: IComponents) => setSelectedComponent(component)}
-              onSearch={(searchTerm) => filterAssets('search', searchTerm)}
+              onSearch={(searchTerm) => filterAssets(EFilter.SEARCH, searchTerm)}
             />
             <AssetInfo selectedComponent={selectedComponent} />
           </Styled.Body>
