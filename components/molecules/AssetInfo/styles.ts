@@ -61,7 +61,6 @@ const Body = styled.div`
 const Asset = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  justify-items: center;
 
   h3 {
     font-size: 16px;
@@ -76,8 +75,8 @@ const ImageUpload = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 336px;
-  height: 224px;
+  width: 486px;
+  height: 324px;
   padding: 24px;
   gap: 8px;
   background-color: #F2F8FF;

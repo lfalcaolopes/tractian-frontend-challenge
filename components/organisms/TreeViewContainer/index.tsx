@@ -263,6 +263,7 @@ function TreeViewContainer() {
       const tree = buildTree(allLocations, allAssets);
 
       setAssetTree(tree);
+      setSelectedFilter(null);
       setFilteredAssetTree(tree);
     })();
   }, [selectedCompany]);

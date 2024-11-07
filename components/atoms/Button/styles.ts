@@ -9,8 +9,7 @@ const Button = styled.button<{ theme: "white" | "blue", $isSelected: boolean }>`
   font-weight: 600;
   background-color: ${({ theme }) => theme === "white" ? "white" : "#023B78"};
   color: ${({ theme }) => theme === "white" ? "#77818C" : "white"};
-  border: 1px solid #D8DFE6;
-  border: ${({ theme }) => theme === "white" ? "1px solid #D8DFE6" : "none"};
+  border: ${({ theme, $isSelected }) => theme === "white" && !$isSelected ? "1px solid #D8DFE6" : "none"};
   padding: 6px 16px;
   border-radius: 4px;
   cursor: pointer;
