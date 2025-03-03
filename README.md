@@ -1,5 +1,5 @@
 <h1 align="center">
-    Tractian Frontend Challenge
+    Dynamic Tree View
 </h1>
 
 <h3 align="center">Dynamic tree View Application that shows companies Assets with filtering features.</h3>
