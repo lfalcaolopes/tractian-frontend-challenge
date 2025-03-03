@@ -1,5 +1,5 @@
 <h1 align="center">
-    Desafio Frontend Tractian
+    Visualização dinâmica de ativos
 </h1>
 
 <h3 align="center">Aplicativo de visualização em árvore dinâmica que mostra os ativos das empresas com recursos de filtragem.</h3>
